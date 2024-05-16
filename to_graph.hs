@@ -2,7 +2,6 @@
 
 module Main where
 
-import qualified Text.MMark as MM
 import qualified Control.Foldl as L
 import qualified Turtle as TS
 import qualified Turtle.Shell as TS.Shell

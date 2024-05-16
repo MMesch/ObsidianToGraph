@@ -13,11 +13,25 @@
     flake-utils.lib.eachDefaultSystem (system:
     let
       pkgs = import nixpkgs { inherit system; };
+      haskellEnv = pkgs.haskellPackages.ghcWithPackages (p: [p.turtle p.megaparsec]);
+      obsidianToGraph = pkgs.stdenv.mkDerivation {
+          name = "obsidianToGraph";
+          src = ./.;
+          buildInputs = [haskellEnv];
+          buildPhase = ''
+            ghc to_graph.hs
+            mkdir -p $out/bin
+            cp to_graph $out/bin/obsidianToGraph
+          '';
+        };
     in
     {
+      packages.obsidianToGraph = obsidianToGraph;
+      packages.default = obsidianToGraph;
+      packages.apps.default = obsidianToGraph;
       devShells.default = pkgs.mkShell {
         packages = [
-          (pkgs.haskellPackages.ghcWithPackages (p: [p.turtle] ))
+          haskellEnv
           pkgs.haskellPackages.haskell-language-server
           pkgs.haskellPackages.hls-splice-plugin
           pkgs.haskellPackages.hls-eval-plugin
