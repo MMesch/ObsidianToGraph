@@ -8,6 +8,11 @@ full folder name (that is with all subfolders).
 You can run it with `nix run github:mmesch/ObsidianToGraph -- FOLDER` where
 `FOLDER` is the folder in your vault that you want to convert.
 
+**CAREFUL** you need to convert all links in your Obsidian vault to "absolute"
+first. You can do that with the
+[link converter plugin](https://github.com/ozntel/obsidian-link-converter) after
+selecting "absolute" links under settings.
+
 Gephi is sometimes a pain to run. If `nix run nixpkgs#gephi` doesn't really
 work because of OpenGL issues, you can download the latest gephi package from
 their website, extract it and run the executable with:
